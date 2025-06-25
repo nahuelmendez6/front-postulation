@@ -1,8 +1,9 @@
-import MyPostulations from '../components/MyPostulation';
+import PostulationList from "../components/PostulationLIst";
+import MyPostulations from "../components/MyPostulation";
 
 const MyPostulationsPage = () => (
-  <div>
-    <MyPostulations />
+  <div className="container mt-4">
+    <PostulationList />
   </div>
 );
 

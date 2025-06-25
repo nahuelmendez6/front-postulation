@@ -1,7 +1,7 @@
 import RoleSelector from '../components/RoleSelector';
 
 const Home = () => (
-  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+  <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
     <RoleSelector />
   </div>
 );

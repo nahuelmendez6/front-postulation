@@ -24,13 +24,15 @@ const MyPostulations = () => {
 
   return (
     <div>
-      <h2>Mis Postulaciones</h2>
-      <ul>
+      <h2 className="mb-4">Mis Postulaciones</h2>
+      <ul className="list-group">
         {postulations.map((post) => (
-          <li key={post.id}>
-            {JSON.stringify(post)}
-            <button onClick={() => handleAccept(post.id)}>Aceptar</button>
-            <button onClick={() => handleReject(post.id)}>Rechazar</button>
+          <li key={post.id} className="list-group-item d-flex justify-content-between align-items-center">
+            <div>{JSON.stringify(post)}</div>
+            <div className="btn-group">
+              <button className="btn btn-sm btn-success" onClick={() => handleAccept(post.id)}>Aceptar</button>
+              <button className="btn btn-sm btn-danger" onClick={() => handleReject(post.id)}>Rechazar</button>
+            </div>
           </li>
         ))}
       </ul>

@@ -8,6 +8,9 @@ export const getPostulationsByPetition = (idPetition) =>
 export const getPostulationById = (id) =>
   axios.get(`${API_URL}/${id}`);
 
+export const getPostulationByProviderId = (idProvider) =>
+  axios.get(`${API_URL}/by-provider/${idProvider}`);
+
 export const createPostulation = (postulation) =>
   axios.post(API_URL, postulation);
 
