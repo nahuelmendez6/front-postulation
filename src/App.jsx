@@ -8,6 +8,11 @@ import DashboardLayout from "./components/Layout";
 import DashboardCustomerLayout from "./components/CustomerLayout";
 import PetitionListWithPostulations from "./components/PetitonListWithPostulation";
 
+/**
+ * Componente principal de la aplicación que configura las rutas usando React Router.
+ * 
+ * Define las rutas públicas y protegidas, y organiza la navegación mediante layouts específicos.
+ */
 function App() {
   return (
     <Router>

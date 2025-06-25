@@ -3,19 +3,26 @@ import { getAllPetitions } from "../api/petitionApi";
 import { getPostulationsByPetition, updateIdState, updateWinner } from "../api/postulationApi";
 import { useNavigate } from "react-router-dom";
 
-const PetitionListWithPostulations = () => {
-  const [petitions, setPetitions] = useState([]);
-  const [postulationsMap, setPostulationsMap] = useState({});
-  const [showModal, setShowModal] = useState(false);
-  const [selectedPetitionId, setSelectedPetitionId] = useState(null);
-  const navigate = useNavigate();
 
+/**
+ * Componente que muestra una lista de peticiones junto con sus postulaciones asociadas.
+ * Permite visualizar detalles y aceptar o rechazar postulaciones desde un modal.
+ */
+const PetitionListWithPostulations = () => {
+  const [petitions, setPetitions] = useState([]); // Lista de peticiones
+  const [postulationsMap, setPostulationsMap] = useState({}); // Mapa de postulaciones por idPetition
+  const [showModal, setShowModal] = useState(false);  // Estado del modal
+  const [selectedPetitionId, setSelectedPetitionId] = useState(null); // ID de la petición seleccionada
+  const navigate = useNavigate(); // Hook para navegar entre rutas
+
+  // Se ejecuta al montar el componente
   useEffect(() => {
     getAllPetitions()
       .then((res) => {
         const fetchedPetitions = res.data;
         setPetitions(fetchedPetitions);
 
+        // Por cada petición obtenida, se consultan sus postulaciones asociadas
         fetchedPetitions.forEach((petition) => {
           getPostulationsByPetition(petition.idPetition)
             .then((res) => {
@@ -32,6 +39,11 @@ const PetitionListWithPostulations = () => {
       .catch((err) => console.error("Error al obtener peticiones:", err));
   }, []);
 
+  /**
+   * Función que acepta o rechaza una postulación.
+   * @param {number} idPostulation - ID de la postulación
+   * @param {boolean} accept - true para aceptar, false para rechazar
+   */
   const handleDecision = async (idPostulation, accept = true) => {
     try {
       const newState = accept ? 1 : 2; // 1 = aceptada, 2 = rechazada
@@ -40,7 +52,7 @@ const PetitionListWithPostulations = () => {
       await updateIdState(idPostulation, newState);
       await updateWinner(idPostulation, newWinner);
 
-      // Actualizamos el estado local
+      // Actualiza el estado local para reflejar los cambios
       setPostulationsMap((prevMap) => {
         const updatedList = prevMap[selectedPetitionId].map((p) =>
           p.idPostulation === idPostulation
@@ -58,17 +70,21 @@ const PetitionListWithPostulations = () => {
     }
   };
 
+  // Abre el modal de postulaciones para una petición específica
   const openModal = (idPetition) => {
     setSelectedPetitionId(idPetition);
     setShowModal(true);
   };
 
+  // Cierra el modal
   const closeModal = () => {
     setShowModal(false);
     setSelectedPetitionId(null);
   };
 
-  // Función para mapear estados a badges con color
+   /**
+   * Renderiza un badge visual según el estado de la postulación.
+   */
   const renderStateBadge = (state) => {
     switch (state) {
       case 1:

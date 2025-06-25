@@ -4,22 +4,30 @@ import { getPetitionById } from "../api/petitionApi";
 import { getPostulationsByPetition } from "../api/postulationApi";
 import PostulationForm from "./PostulationForm";
 
+/**
+ * Componente que muestra el detalle de una petición específica,
+ * incluyendo su descripción, fechas, cliente y un formulario para postularse.
+ */
 const PetitionDetail = () => {
+  // Obtiene el ID de la petición desde la URL
   const { id } = useParams();
-  const [petition, setPetition] = useState(null);
-  const [postulations, setPostulations] = useState([]);
-  const [showModal, setShowModal] = useState(false);
+  const [petition, setPetition] = useState(null); // Datos de la petición
+  const [postulations, setPostulations] = useState([]); // Lista de postulaciones asociadas
+  const [showModal, setShowModal] = useState(false);  // Controla si el modal del formulario está visible
 
+    // Efecto que se ejecuta al montar el componente o al cambiar el ID
   useEffect(() => {
+    // Obtener los datos de la petición
     getPetitionById(id)
       .then((res) => setPetition(res.data))
       .catch((err) => console.error(err));
-
+    // Obtener las postulaciones asociadas a esta petición
     getPostulationsByPetition(id)
       .then((res) => setPostulations(res.data))
       .catch((err) => console.error(err));
   }, [id]);
 
+  // Mientras se cargan los datos de la petición
   if (!petition) return <div className="text-center mt-5">Cargando...</div>;
 
   return (

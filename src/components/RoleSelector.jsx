@@ -1,6 +1,15 @@
 import { useNavigate } from "react-router-dom";
 
+/**
+ * Componente que muestra una pantalla simple para seleccionar el rol de usuario
+ * e ingresar a la aplicación con diferentes vistas según el rol seleccionado.
+ *
+ * - Cliente: redirige a la ruta "customer/petitions"
+ * - Proveedor: redirige a la ruta "/petitions"
+ * - Postulante: redirige a la ruta "/my-postulations"
+ */
 const RoleSelector = () => {
+  // Hook para navegación programática entre rutas
   const navigate = useNavigate();
 
   return (

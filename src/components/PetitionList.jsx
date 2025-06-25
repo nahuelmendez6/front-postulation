@@ -2,17 +2,22 @@ import { useEffect, useState } from "react";
 import { getAllPetitions } from "../api/petitionApi";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * Componente que muestra una lista de todas las peticiones disponibles.
+ * Cada tarjeta incluye información resumida de la petición y un botón para ver su detalle.
+ */
 const PetitionList = () => {
-  const [petitions, setPetitions] = useState([]);
-  const navigate = useNavigate();
+  const [petitions, setPetitions] = useState([]); // Estado que almacena las peticiones
+  const navigate = useNavigate(); // Hook de React Router para redirigir
 
+  // Al montar el componente, se obtienen todas las peticiones desde la API
   useEffect(() => {
     getAllPetitions()
       .then((res) => {
-        console.log("🟢 Petitions:", res.data);
-        setPetitions(res.data);
+        console.log("🟢 Petitions:", res.data);  // Log para depuración
+        setPetitions(res.data); // Actualiza el estado con la respuesta
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err));  // Manejo de errores
   }, []);
 
   return (

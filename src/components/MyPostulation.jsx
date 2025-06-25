@@ -1,23 +1,39 @@
 import { useEffect, useState } from "react";
 import { getMyPostulations, updateWinner, updateIdState } from "../api/postulationApi";
 
+/**
+ * Componente que muestra las postulaciones realizadas por el usuario actual.
+ * Permite aceptar o rechazar cada postulación mediante botones de acción.
+ */
 const MyPostulations = () => {
+  // Estado local para almacenar las postulaciones del usuario
   const [postulations, setPostulations] = useState([]);
 
+  // Al montar el componente, se obtienen las postulaciones del usuario
   useEffect(() => {
     getMyPostulations()
-      .then((res) => setPostulations(res.data))
-      .catch((err) => console.error(err));
+      .then((res) => setPostulations(res.data)) // Se actualiza el estado con los datos recibidos
+      .catch((err) => console.error(err)); // Se maneja cualquier error en la consola
   }, []);
 
+  /**
+   * Maneja la aceptación de una postulación.
+   * Llama a la API para marcarla como ganadora.
+   * @param {number|string} postId - ID de la postulación.
+   */
   const handleAccept = (postId) => {
     updateWinner(postId, "true")
       .then(() => alert("Postulación aceptada"))
       .catch(() => alert("Error al aceptar"));
   };
 
+   /**
+   * Maneja el rechazo de una postulación.
+   * Cambia el estado de la postulación a "rechazada" (ID 2, según el backend).
+   * @param {number|string} postId - ID de la postulación.
+   */
   const handleReject = (postId) => {
-    updateIdState(postId, 2) // 2 = rechazado, ajusta según tu backend
+    updateIdState(postId, 2) // 2 = rechazado
       .then(() => alert("Postulación rechazada"))
       .catch(() => alert("Error al rechazar"));
   };

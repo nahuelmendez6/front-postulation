@@ -1,8 +1,20 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
 
+/**
+ * Layout principal del dashboard administrativo o general.
+ * Define la estructura de la interfaz: una barra lateral (sidebar) para navegación
+ * y un área principal para mostrar el contenido dinámico mediante <Outlet />.
+ */
 const DashboardLayout = () => {
+   // Hook de React Router para obtener la ruta actual
   const { pathname } = useLocation();
 
+  /**
+   * Verifica si el path actual comienza con el valor pasado.
+   * Se usa para aplicar estilos activos a los enlaces del menú.
+   * @param {string} path - Ruta a comparar con el pathname actual.
+   * @returns {boolean} `true` si coincide, `false` si no.
+   */
   const isActive = (path) => pathname.startsWith(path);
   const linkedinBlue = "#0077B5";
   const navbarSilver = "#dcdcdc";

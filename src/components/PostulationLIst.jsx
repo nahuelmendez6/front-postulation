@@ -2,18 +2,32 @@ import { useEffect, useState } from "react";
 import { getPostulationByProviderId } from "../api/postulationApi";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * Componente que muestra la lista de postulaciones asociadas a un proveedor específico.
+ * El proveedor está hardcodeado con id 179 para fines de prueba.
+ */
 const PostulationList = () => {
-  const idProvider = 179; // Hardcodeado aquí
+  // ID del proveedor hardcodeado (debería venir de autenticación en un caso real)
+  const idProvider = 179; 
 
+  // Estado local para almacenar las postulaciones obtenidas
   const [postulations, setPostulations] = useState([]);
+
+   // Hook para navegación entre páginas
   const navigate = useNavigate();
 
+  // Efecto para cargar las postulaciones del proveedor al montar el componente
   useEffect(() => {
     getPostulationByProviderId(idProvider)
       .then((res) => setPostulations(res.data))
       .catch((err) => console.error(err));
   }, []);
 
+  /**
+   * Retorna la clase CSS adecuada para el badge según el estado de la postulación.
+   * @param {string} state - Estado de la postulación (aceptada, rechazada, pendiente, etc.)
+   * @returns {string} Clase CSS para badge
+   */
   const getBadgeClass = (state) => {
     switch (state?.toLowerCase()) {
       case "aceptada":

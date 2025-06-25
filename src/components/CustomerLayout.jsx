@@ -1,9 +1,23 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
 
+/**
+ * Layout del dashboard del cliente.
+ * Este componente define la estructura general de la interfaz para un cliente,
+ * incluyendo una barra lateral (sidebar) con navegación y un área principal de contenido.
+ */
 const DashboardCustomerLayout = () => {
+  // Hook de React Router para obtener la ruta actual
   const { pathname } = useLocation();
 
+
+  /**
+   * Verifica si una ruta dada coincide con el comienzo del pathname actual.
+   * Esto se utiliza para aplicar estilos de "activo" a los enlaces.
+   * @param {string} path - Ruta a comparar.
+   * @returns {boolean} true si el pathname actual comienza con la ruta dada.
+   */
   const isActive = (path) => pathname.startsWith(path);
+   // Colores personalizados
   const linkedinBlue = "#0077B5";
   const navbarSilver = "#dcdcdc";
 
